@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Fernanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@300;400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Enredados: Lila, Rosa y Dorado */
+            --rosa-bloque: rgba(255, 255, 255, 0.35);
+            --rosa-bloque-borde: rgba(212, 175, 55, 0.3);
+            --rosa-bloque-alt: rgba(255, 255, 255, 0.3);
+            --text-deep: #2d1645; /* Morado profundo para legibilidad en cristal */
+            --text-rose: #b58900; /* Dorado intenso */
+            --text-muted: #4a2c5d;
+            --btn-grad-1: rgba(181, 137, 0, 0.9);
+            --btn-grad-2: rgba(212, 175, 55, 0.9);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
+            width: 100%; height: 100%;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background-color: #1a0b26; /* Fondo oscuro y mágico */
+            color: var(--text-deep);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ====== ANIMACIONES DE SCROLL ====== */
+        .anim-fade-up {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .anim-fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ====== SOBRE REDISEÑADO ====== */
+        #envelope-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a0b26 0%, #2d1645 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 1.2s ease-in-out, visibility 1.2s;
+            overflow: hidden;
+        }
+        #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* Estrellas */
+        .env-star {
+            position: absolute; border-radius: 50%; background: white;
+            animation: envTwinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+        }
+        @keyframes envTwinkle {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.4); }
+        }
+
+        /* Destellos dorados */
+        .env-sparkle {
+            position: absolute; pointer-events: none; z-index: 8;
+            animation: envSparklePulse var(--sd, 2s) ease-in-out infinite var(--sdelay, 0s);
+        }
+        @keyframes envSparklePulse {
+            0%,100%{opacity:0.2;transform:scale(0.6) rotate(0deg);}
+            50%{opacity:1;transform:scale(1.1) rotate(25deg);}
+        }
+
+        .envelope-wrapper {
+            position: relative; cursor: pointer; z-index: 10;
+            display: flex; flex-direction: column; align-items: center;
+            width: 310px; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .envelope-wrapper:hover { transform: translateY(-6px) scale(1.02); }
+
+        .envelope-body { position: relative; width: 310px; height: 210px; margin: 0 auto; }
+        .env-svg-main {
+            width: 310px; height: 210px;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.6)) drop-shadow(0 6px 15px rgba(212,175,55,0.15));
+            transition: filter 0.4s ease;
+        }
+        .envelope-wrapper:hover .env-svg-main {
+            filter: drop-shadow(0 28px 60px rgba(0,0,0,0.7)) drop-shadow(0 8px 22px rgba(212,175,55,0.25));
+        }
+
+        .env-name-label {
+            position: absolute; top: 78px; left: 0; right: 0; text-align: center;
+            font-family: 'Pinyon Script', cursive; font-size: 38px;
+            color: rgba(255,245,220,0.92);
+            text-shadow: 0 0 30px rgba(212,175,55,0.4), 0 2px 8px rgba(0,0,0,0.5);
+            pointer-events: none; z-index: 15;
+        }
+        .env-date-label {
+            position: absolute; top: 120px; left: 0; right: 0; text-align: center;
+            font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 4px;
+            color: rgba(212,175,55,0.7); pointer-events: none; z-index: 15; text-transform: uppercase;
+        }
+
+        .env-flap-group {
+            transform-origin: 155px 0px; transform-box: fill-box;
+            transition: transform 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s;
+        }
+        .envelope-wrapper.open .env-flap-group { transform: rotateX(-176deg); }
+
+        .letter-peek {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 270px; background: linear-gradient(180deg, #fff9f0 0%, #fef5e7 100%);
+            border-radius: 3px; border: 1px solid rgba(212,175,55,0.3);
+            z-index: 5; overflow: hidden; top: 20px; height: 0; opacity: 0;
+            transition: height 0.6s cubic-bezier(0.22,1,0.36,1) 0.7s, opacity 0.4s ease 0.7s, top 0.6s cubic-bezier(0.22,1,0.36,1) 0.7s;
+            display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
+        }
+        .envelope-wrapper.open .letter-peek { height: 80px; opacity: 1; top: -40px; }
+        .letter-peek-inner { text-align: center; opacity: 0; transition: opacity 0.4s ease 1.1s; }
+        .envelope-wrapper.open .letter-peek-inner { opacity: 1; }
+        .letter-peek-name { font-family: 'Pinyon Script', cursive; font-size: 28px; color: #5a2e70; line-height: 1; }
+        .letter-peek-date { font-family: 'Cinzel', serif; font-size: 7.5px; letter-spacing: 3px; color: #b58900; margin-top: 2px; text-transform: uppercase; }
+
+        .wax-seal {
+            position: absolute; top: 143px; left: 50%; transform: translateX(-50%);
+            width: 62px; height: 62px; z-index: 20;
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s, opacity 0.4s ease 0.15s;
+        }
+        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0) rotate(45deg); opacity: 0; }
+
+        .hint-text {
+            margin-top: 30px; text-align: center; font-family: 'Cinzel', serif; font-size: 10px;
+            letter-spacing: 4px; color: rgba(212,175,55,0.7); animation: pulse 2.5s infinite; text-transform: uppercase; width: 310px;
+        }
+
+        /* LINTERNAS FLOTANTES */
+        .floating-lantern {
+            position: absolute;
+            background: radial-gradient(circle, #fff3b0 0%, #ffca28 70%, #ff8f00 100%);
+            border-radius: 3px 3px 2px 2px;
+            box-shadow: 0 0 10px rgba(255, 202, 40, 0.8), 0 0 20px rgba(255, 143, 0, 0.5);
+            pointer-events: none; opacity: 0;
+            animation: float-lantern infinite ease-in;
+        }
+        @keyframes float-lantern {
+            0% { transform: translateY(0) rotate(-5deg); opacity: 0; }
+            10% { opacity: 0.85; }
+            50% { transform: translateY(-50vh) rotate(5deg); }
+            90% { opacity: 0.85; }
+            100% { transform: translateY(-100vh) rotate(-5deg); opacity: 0; }
+        }
+
+        /* ====== MAIN ====== */
+        #main-invitation {
+            min-height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center;
+            padding: 60px 20px; opacity: 0; transform: translateY(20px);
+            transition: opacity 1.5s ease-out 0.6s, transform 1.5s ease-out 0.6s;
+        }
+        body.content-active #main-invitation { opacity: 1; transform: translateY(0); }
+
+        /* ====== FRAME DE CRISTAL ====== */
+        .invitation-frame {
+            max-width:500px; width:100%; border:1px solid rgba(212,175,55,0.3);
+            padding:50px 38px; text-align:center; position:relative;
+            background: rgba(255, 255, 255, 0.80);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.4) inset;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-radius:4px; overflow:visible;
+        }
+
+        .hero-photo-wrap {
+            width: 240px; height: 320px; margin: 0 auto 25px auto;
+            border-radius: 120px 120px 0 0; padding: 6px;
+            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(212,175,55,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .hero-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 114px 114px 0 0; }
+
+        .frame-sparkle { position:absolute;pointer-events:none;z-index:10; }
+        .frame-sparkle svg { animation:sparkle-pulse 2.5s ease-in-out infinite; }
+        .frame-sparkle:nth-child(1) { top:-10px;left:-10px; }
+        .frame-sparkle:nth-child(2) { top:-10px;right:-10px;animation-delay:0.6s; }
+        .frame-sparkle:nth-child(3) { bottom:-10px;left:-10px;animation-delay:1.2s; }
+        .frame-sparkle:nth-child(4) { bottom:-10px;right:-10px;animation-delay:1.8s; }
+        @keyframes sparkle-pulse {
+            0%,100% { opacity:0.3;transform:scale(0.7) rotate(0deg); }
+            50% { opacity:1;transform:scale(1.1) rotate(20deg); }
+        }
+
+        /* ====== TIPOGRAFÍA ====== */
+        .section-heading, .section-heading-sm {
+            font-family: 'Bodoni Moda', serif; font-style: italic; font-weight: 500;
+            color: var(--text-rose); text-transform: none; line-height: 1.3;
+        }
+        .section-heading { font-size: 26px; letter-spacing: 1px; margin-bottom: 16px; }
+        .section-heading-sm { font-size: 20px; letter-spacing: 1px; margin-bottom: 12px; }
+        .section-tag { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 16px; letter-spacing: 2px; color: var(--text-rose); font-weight: 500; margin-bottom: 14px; }
+        
+        .main-title { 
+            font-family:'Pinyon Script',cursive;font-size:84px;color:var(--text-deep); 
+            margin-bottom:2px; line-height:1;
+            /* Ajuste óptico más pronunciado para centrar perfectamente la tipografía cursiva */
+            transform: translateX(-40px);
+            padding-right: 10px;
+            text-align: center;
+        }
+        
+        .full-name { font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;color:var(--text-muted);margin-bottom:30px;font-weight:300;text-transform:uppercase; }
+        .phrase { font-family:'EB Garamond','Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#2a1638;line-height:1.8;margin-bottom:35px;padding:0 10px;font-weight:400; }
+        .family-names { font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;font-style:italic;color:var(--text-deep);line-height:1.6;margin-top:6px; }
+        .info-label { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 11px; letter-spacing: 3px; color: var(--text-rose); text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+        .info-block { margin-bottom:28px; }
+
+        .divider-ornate { display:flex;align-items:center;justify-content:center;gap:8px;margin:28px auto; }
+        .divider-ornate::before,.divider-ornate::after { content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(212,175,55,0.5)); }
+        .divider-ornate::after { background:linear-gradient(to left,transparent,rgba(212,175,55,0.5)); }
+        .divider-ornate-diamond { width:6px;height:6px;background:var(--text-rose);transform:rotate(45deg);flex-shrink:0; }
+
+        /* ====== COUNTDOWN ====== */
+        .countdown-grid { display:flex;justify-content:center;gap:10px;margin:18px auto 6px auto;max-width:340px; }
+        .countdown-item { flex:1;background:rgba(255,255,255,0.6);border:1px solid rgba(212,175,55,0.3);padding:12px 5px;border-radius:4px;backdrop-filter:blur(6px); }
+        .countdown-number { font-family:'Cinzel',serif;font-size:24px;font-weight:400;color:var(--text-rose);display:block; }
+        .countdown-label { font-family:'Montserrat',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);font-weight:500; }
+
+        /* ====== BLOQUES VIDRIO ====== */
+        .bloque-vidrio, .bloque-vidrio-alt {
+            border-radius:8px; padding:28px 26px; margin:0 -38px; position:relative;
+        }
+        .bloque-vidrio { background:var(--rosa-bloque); border:1px solid var(--rosa-bloque-borde); }
+        .bloque-vidrio-alt { background:var(--rosa-bloque-alt); border:1px solid rgba(212,175,55,0.2); }
+        
+        /* ====== CALENDARIO ===== */
+        .calendar-widget{ margin-top:18px; background:rgba(255,255,255,0.35); border:1px solid rgba(212,175,55,0.4); border-radius:18px; overflow:hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
+        .calendar-header{ padding:18px 20px 14px; text-align:center; color: var(--text-deep); position:relative; }
+        .calendar-header::after{ content:''; position:absolute; left:0; bottom:0; width:100%; height:1px; background:rgba(212,175,55,0.3); }
+        .calendar-year{ font-family:'Cinzel',serif; font-size:10px; letter-spacing:5px; text-transform:uppercase; opacity:0.9; }
+        .calendar-month{ margin-top:5px; font-family: 'Pinyon Script', cursive; font-size:36px; font-weight:400; letter-spacing:1px; color:var(--text-deep); }
+        .calendar-body{ padding:18px 16px 20px; }
+        .calendar-days-header{ display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:12px; }
+        .calendar-day-name{ text-align:center; font-family:'Montserrat', sans-serif; font-size:9px; letter-spacing:1.5px; color:rgba(45,22,69,0.8); text-transform:uppercase; }
+        .calendar-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
+        .cal-day{ width:34px; height:34px; margin:auto; display:flex; align-items:center; justify-content:center; font-family: 'Cormorant Garamond', serif; font-size:17px; color:var(--text-deep); position:relative; border-radius:50%; transition:all .3s ease; }
+        .cal-day.empty{ opacity:0; }
+        .cal-day.highlight{ border: 1px solid var(--text-rose); color:var(--text-deep); font-weight:600; background:rgba(212,175,55,0.15); }
+        
+        .btn-accion {
+            margin-top:18px; width:100%; border:1px solid rgba(212,175,55,0.6); border-radius:14px; padding:14px 18px;
+            background: rgba(255,255,255,0.4); color:var(--text-rose); display:flex; align-items:center; justify-content:center; gap:10px;
+            cursor:pointer; transition:.35s ease; font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:600;
+        }
+        .btn-accion:hover { transform:translateY(-2px); background: rgba(212,175,55,0.25); }
+        .btn-accion svg { width:16px; height:16px; fill:var(--text-rose); flex-shrink:0; }
+
+        /* ====== MAPAS SIMPLES ====== */
+        .ubicacion-sencilla { text-align: left; margin-bottom: 35px; }
+        .map-wrapper { width:100%;height:180px;border-radius:6px;overflow:hidden;border:1px solid rgba(212,175,55,0.4); margin-bottom: 12px; background: #e0e0e0; }
+
+        /* ====== GALERÍA CARRUSEL ====== */
+        .carrusel-galeria {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 12px; padding-bottom: 15px; scrollbar-width: thin; margin-top: 18px;
+        }
+        .carrusel-galeria::-webkit-scrollbar { height: 6px; }
+        .carrusel-galeria::-webkit-scrollbar-thumb { background: var(--text-rose); border-radius: 10px; }
+        .carrusel-item {
+            flex: 0 0 75%; scroll-snap-align: center; border-radius: 8px; overflow: hidden;
+            border: 1px solid rgba(212,175,55,0.4); box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer;
+        }
+        .carrusel-item img { width: 100%; height: 260px; object-fit: cover; display: block; transition: transform 0.4s; }
+        .carrusel-item:hover img { transform: scale(1.05); }
+        
+        /* Lightbox */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s;
+        }
+        .lightbox.active { opacity: 1; visibility: visible; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 2px solid var(--text-rose); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; cursor: pointer; }
+
+        /* ====== ITINERARIO ====== */
+        .itinerario-timeline { margin-top:20px; position:relative; padding:0; }
+        .itinerario-timeline::before {
+            content:''; position:absolute; left:50%; top:0; bottom:0; width:1px;
+            background:linear-gradient(to bottom, transparent, var(--text-rose) 8%, var(--text-rose) 92%, transparent);
+            transform:translateX(-50%);
+        }
+        .itin-row { display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:15px; }
+        .itin-hora { width:calc(50% - 26px); text-align:right; padding-right:16px; font-family:'Cinzel',serif; font-size:10px; font-weight:600; letter-spacing:1px; color:var(--text-deep); line-height:1.2; flex-shrink:0; }
+        .itin-node { width:26px; height:26px; flex-shrink:0; position:relative; z-index:2; display:flex; align-items:center; justify-content:center; }
+        .itin-node::before {
+            content:'☼'; /* Sol de Enredados */ font-size:22px; color:var(--text-rose); line-height:1;
+            text-shadow: 0 0 10px rgba(212,175,55,0.4);
+        }
+        .itin-evento { width:calc(50% - 26px); padding-left:16px; flex-shrink:0; }
+        .itin-evento-nombre { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px; font-weight:400; color:var(--text-deep); line-height:1.1; text-align:left; }
+
+        /* ====== CONFIRMACIÓN & FORMS ====== */
+        .rsvp-intro { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:#2a1638;line-height:1.6;margin-bottom:22px; }
+        .rsvp-input-label { font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:var(--text-deep);text-transform:uppercase;font-weight:600;display:block;margin-bottom:8px; text-align:left;}
+        .rsvp-input {
+            width:100%;padding:13px 16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;
+            color:var(--text-deep);background:rgba(255,255,255,0.8);border:1px solid rgba(212,175,55,0.4);
+            border-radius:4px;outline:none;transition:border-color 0.3s,box-shadow 0.3s;
+        }
+        select.rsvp-input { cursor: pointer; }
+        .rsvp-input:focus { border-color:var(--text-rose);box-shadow:0 0 0 3px rgba(212,175,55,0.15); }
+        .rsvp-input-wrap { margin-bottom:18px; text-align: left; }
+        
+        .btn-confirmar {
+            display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
+            padding:15px 24px;background:linear-gradient(135deg,var(--btn-grad-1),var(--btn-grad-2));
+            color:#fff;border:none;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:3px;
+            text-transform:uppercase;cursor:pointer;font-weight:600;border-radius:4px;
+            box-shadow:0 5px 18px rgba(212,175,55,0.25);transition:all 0.4s ease;
+            position:relative;overflow:hidden;
+        }
+        .btn-confirmar::before { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transition:left 0.5s; }
+        .btn-confirmar:hover::before { left:100%; }
+        .btn-confirmar:hover { box-shadow:0 7px 25px rgba(212,175,55,0.4);transform:translateY(-1px); }
+        .btn-confirmar svg { width:17px;height:17px;fill:#fff;flex-shrink:0; }
+
+        /* ====== GLITTER Y MUSICA ====== */
+        #glitter-canvas { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.8s; }
+        #glitter-canvas.visible { opacity:1; }
+
+        #music-control-btn {
+            position:fixed;bottom:25px;right:25px;width:48px;height:48px;border-radius:50%;
+            background:rgba(45,22,69,0.85);border:1px solid rgba(212,175,55,0.4);color:#fff;
+            display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:999;
+            box-shadow:0 4px 15px rgba(0,0,0,0.3);opacity:0;visibility:hidden;
+            transition:opacity 0.5s,visibility 0.5s,transform 0.3s;backdrop-filter:blur(8px);
+        }
+        #music-control-btn:hover { transform:scale(1.08); }
+        #music-control-btn.visible { opacity:1;visibility:visible; }
+        #music-control-btn svg { width:20px;height:20px;fill:var(--text-rose); }
+
+        .lotus-header { margin-bottom:20px; }
+        .lotus-header svg { width:48px;height:48px;fill:var(--text-rose); }
+        .invitation-footer { font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.6);margin-top:24px;font-weight:400;text-transform:uppercase; }
+
+        @keyframes pulse { 0%,100%{opacity:0.5}50%{opacity:1} }
+        @media(max-width:400px){
+            .main-title{font-size:68px}
+            .invitation-frame{padding:38px 22px}
+            .bloque-vidrio,.bloque-vidrio-alt{margin:0 -22px}
+        }
+    </style>
+</head>
+<body>
+    <audio id="song" src="assets/song.mp3" loop preload="auto"></audio>
+    <canvas id="glitter-canvas"></canvas>
+    
+    <button id="music-control-btn" onclick="toggleMusic()" aria-label="Control de música">
+        <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+    <div id="envelope-screen">
+        <div id="env-stars"></div>
+        <div id="env-lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
+
+        <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        </div>
+        <div class="env-sparkle" style="--sd:3s;--sdelay:0.8s;top:55px;right:90px;">
+            <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
+        </div>
+
+        <div class="envelope-wrapper" id="envelopeWrapperNew">
+            <div class="letter-peek">
+                <div class="letter-peek-inner">
+                    <div class="letter-peek-name">Fernanda</div>
+                    <div class="letter-peek-date">24 · Jul · 2026</div>
+                </div>
+            </div>
+            
+            <div class="envelope-body">
+                <svg class="env-svg-main" viewBox="0 0 310 210" fill="none">
+                    <defs>
+                        <linearGradient id="goldGrad2" x1="0" y1="0" x2="310" y2="210" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#ffe082"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#9e7f1e"/>
+                        </linearGradient>
+                        <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#3b1f47"/><stop offset="100%" stop-color="#2d1645"/>
+                        </linearGradient>
+                        <linearGradient id="envLeft2" x1="0" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#4a2c5d"/><stop offset="100%" stop-color="#321b40"/>
+                        </linearGradient>
+                        <linearGradient id="envRight2" x1="310" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#422552"/><stop offset="100%" stop-color="#2a1638"/>
+                        </linearGradient>
+                        <linearGradient id="envBottom2" x1="155" y1="210" x2="155" y2="130" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#553569"/><stop offset="100%" stop-color="#3b1f47"/>
+                        </linearGradient>
+                        <linearGradient id="flapGrad2" x1="0" y1="0" x2="310" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#553569"/><stop offset="100%" stop-color="#3b1f47"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="310" height="210" rx="5" fill="url(#envBase2)"/>
+                    <rect x="0.4" y="0.4" width="309.2" height="209.2" rx="4.6" stroke="url(#goldGrad2)" stroke-width="1.2" fill="none" opacity="0.7"/>
+                    <polygon points="0,0 155,105 0,210" fill="url(#envLeft2)" opacity="0.9"/>
+                    <polygon points="310,0 155,105 310,210" fill="url(#envRight2)" opacity="0.9"/>
+                    <polygon points="0,210 155,105 310,210" fill="url(#envBottom2)" opacity="0.95"/>
+                    <line x1="0" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.4"/>
+                    <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.4"/>
+                    
+                    <g class="env-flap-group">
+                        <polygon points="0,0 155,125 310,0" fill="url(#flapGrad2)"/>
+                        <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1.5" fill="none" opacity="0.8"/>
+                    </g>
+                </svg>
+                <div class="env-name-label">Fernanda</div>
+                <div class="env-date-label">Mis XV Años  ·  2026</div>
+                <div class="wax-seal">
+                    <svg viewBox="0 0 62 62" fill="none">
+                        <defs>
+                            <radialGradient id="sealGrad2" cx="38%" cy="32%" r="65%">
+                                <stop offset="0%" stop-color="#fff4cd"/><stop offset="30%" stop-color="#e8c84a"/><stop offset="65%" stop-color="#c4921a"/><stop offset="100%" stop-color="#7a5500"/>
+                            </radialGradient>
+                            <radialGradient id="sealInner2" cx="40%" cy="35%" r="60%">
+                                <stop offset="0%" stop-color="#fff0aa"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#9e7f1e"/>
+                            </radialGradient>
+                        </defs>
+                        <path d="M31 3 L34 9 L40 6 L41 13 L48 12 L47 19 L54 20 L51 26 L57 30 L52 34 L56 40 L50 42 L51 49 L44 48 L42 55 L36 52 L31 58 L26 52 L20 55 L18 48 L11 49 L12 42 L6 40 L10 34 L5 30 L11 26 L8 20 L15 19 L14 12 L21 13 L22 6 L28 9 Z" fill="url(#sealGrad2)"/>
+                        <circle cx="31" cy="31" r="18" fill="url(#sealInner2)"/>
+                        <g transform="translate(31,31)" fill="#7a5500" opacity="0.85">
+                            <path d="M0,-8 C2.5,-4 8,-2 8,0 C8,2 2.5,4 0,8 C-2.5,4 -8,2 -8,0 C-8,-2 -2.5,-4 0,-8Z"/>
+                            <path d="M-5.6,-5.6 C-1,-4.5 1,-1 5.6,-5.6 C4.5,-1 1,1 5.6,5.6 C1,4.5 -1,1 -5.6,5.6 C-4.5,1 -1,-1 -5.6,-5.6Z"/>
+                            <circle cx="0" cy="0" r="2.5" fill="#5a3d00"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="hint-text">Toca para abrir</div>
+    </div>
+
+    <main id="main-invitation">
+        <div id="lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
+
+        <div class="invitation-frame anim-fade-up" style="z-index:2;">
+            <div class="frame-sparkle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/></svg></div>
+            <div class="frame-sparkle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.85"/></svg></div>
+
+            <div class="hero-photo-wrap">
+                <!-- Se asume imagen generica o se puede reemplazar con la real -->
+                <div style="width: 100%; height: 100%; border-radius: 114px 114px 0 0; background-color: #eee; display: flex; align-items: center; justify-content: center; color: #b58900; font-family: 'Cinzel', serif;">FOTO</div>
+            </div>
+
+            <div class="section-tag anim-fade-up">Mis XV Años</div>
+            <h1 class="main-title anim-fade-up">Fernanda</h1>
+            
+            <p class="phrase anim-fade-up">"Hay momentos inolvidables que se atesoran en el corazón para siempre, por esa razón quiero que compartas conmigo este día tan especial."</p>
+            
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="info-block anim-fade-up">
+                <div class="info-label">Con la bendición de mis padres</div>
+                <div class="family-names">Lucia Yaneth Guerrero Diaz<br>Daniel Duran Balbastro</div>
+            </div>
+            <div class="info-block anim-fade-up">
+                <div class="info-label">Mis Padrinos</div>
+                <div class="family-names">Erik Angulo Nuñez & Marina Sanchez Morales<br>Margarita Guerrero Diaz & Carlos Guerrero<br>Lourdes Balbastro Garcia & Alejandro Requena Herrera</div>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="section-heading-sm anim-fade-up">Cuenta Regresiva</div>
+            <div class="countdown-grid anim-fade-up" id="countdown-timer">
+                <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Hrs</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio anim-fade-up">
+                <div class="section-heading">Fecha</div>
+                <div style="font-family:'Cinzel',serif;font-size:28px;font-weight:300;color:var(--text-deep);letter-spacing:3px;">24 · JUL · 2026</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--text-muted);margin-top:5px;">Viernes</div>
+                
+                <div class="calendar-widget">
+                    <div class="calendar-header"><span class="calendar-year">2026</span> <div class="calendar-month">Julio</div></div>
+                    <div class="calendar-body">
+                        <div class="calendar-days-header">
+                            <span class="calendar-day-name">Dom</span><span class="calendar-day-name">Lun</span><span class="calendar-day-name">Mar</span><span class="calendar-day-name">Mié</span><span class="calendar-day-name">Jue</span><span class="calendar-day-name">Vie</span><span class="calendar-day-name">Sáb</span>
+                        </div>
+                        <div class="calendar-grid">
+                            <span class="cal-day empty"></span><span class="cal-day empty"></span><span class="cal-day empty"></span>
+                            <span class="cal-day">1</span><span class="cal-day">2</span><span class="cal-day">3</span><span class="cal-day">4</span>
+                            <span class="cal-day">5</span><span class="cal-day">6</span><span class="cal-day">7</span><span class="cal-day">8</span><span class="cal-day">9</span><span class="cal-day">10</span><span class="cal-day">11</span>
+                            <span class="cal-day">12</span><span class="cal-day">13</span><span class="cal-day">14</span><span class="cal-day">15</span><span class="cal-day">16</span><span class="cal-day">17</span><span class="cal-day">18</span>
+                            <span class="cal-day">19</span><span class="cal-day">20</span><span class="cal-day">21</span><span class="cal-day">22</span><span class="cal-day">23</span><span class="cal-day highlight">24</span><span class="cal-day">25</span>
+                            <span class="cal-day">26</span><span class="cal-day">27</span><span class="cal-day">28</span><span class="cal-day">29</span><span class="cal-day">30</span><span class="cal-day">31</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio-alt anim-fade-up">
+                <div class="section-heading">Ceremonia Religiosa</div>
+                <div class="ubicacion-sencilla">
+                    <p style="font-family:'Cormorant Garamond', serif; font-size: 19px; margin-bottom: 8px; text-align: center;"><strong>Parroquia de San Miguel Arcángel</strong></p>
+                    <p style="font-family:'Montserrat', sans-serif; font-size: 11px; line-height: 1.5; color: var(--text-muted); margin-bottom: 12px; text-align: center;">Centro, Ciudad</p>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <a href="#" class="btn-accion">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Ver en Google Maps
+                    </a>
+                </div>
+
+                <div class="divider-ornate anim-fade-up" style="margin: 30px auto;"><div class="divider-ornate-diamond"></div></div>
+
+                <div class="section-heading">Recepción</div>
+                <div class="ubicacion-sencilla">
+                    <p style="font-family:'Cormorant Garamond', serif; font-size: 19px; margin-bottom: 8px; text-align: center;"><strong>Salón de Eventos "El Castillo"</strong></p>
+                    <p style="font-family:'Montserrat', sans-serif; font-size: 11px; line-height: 1.5; color: var(--text-muted); margin-bottom: 12px; text-align: center;">Avenida Principal, Estado</p>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <a href="#" class="btn-accion">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Ver en Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio anim-fade-up">
+                <div class="section-heading">Itinerario</div>
+                <div class="itinerario-timeline">
+                    <div class="itin-row">
+                        <div class="itin-hora">6:00 PM</div>
+                        <div class="itin-node"></div>
+                        <div class="itin-evento"><div class="itin-evento-nombre">Ceremonia</div></div>
+                    </div>
+                    <div class="itin-row">
+                        <div class="itin-hora">8:00 PM</div>
+                        <div class="itin-node"></div>
+                        <div class="itin-evento"><div class="itin-evento-nombre">Recepción</div></div>
+                    </div>
+                    <div class="itin-row">
+                        <div class="itin-hora">9:00 PM</div>
+                        <div class="itin-node"></div>
+                        <div class="itin-evento"><div class="itin-evento-nombre">Cena</div></div>
+                    </div>
+                    <div class="itin-row">
+                        <div class="itin-hora">10:00 PM</div>
+                        <div class="itin-node"></div>
+                        <div class="itin-evento"><div class="itin-evento-nombre">Vals</div></div>
+                    </div>
+                    <div class="itin-row">
+                        <div class="itin-hora">10:30 PM</div>
+                        <div class="itin-node"></div>
+                        <div class="itin-evento"><div class="itin-evento-nombre">¡A Bailar!</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio-alt anim-fade-up">
+                <div class="section-heading">Código de Vestimenta</div>
+                <p style="font-family:'Montserrat', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--text-deep); text-transform: uppercase; margin-bottom: 10px; font-weight: 600;">Formal</p>
+                <p style="font-family:'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--text-muted);">
+                    Me encantaría que me acompañaras usando colores de temporada.<br>
+                    <em>(Por favor reserva el color lila y rosa para la Quinceañera)</em>
+                </p>
+            </div>
+
+            <div class="bloque-vidrio anim-fade-up" style="margin-top: 30px;">
+                <div class="section-heading">Mesa de Regalos</div>
+                <p style="font-family:'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--text-muted); margin-bottom: 15px;">Tu presencia es mi mejor regalo, pero si deseas obsequiarme algo, puedes hacerlo en:</p>
+                <p style="font-family:'Montserrat', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--text-deep); text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">LIVERPOOL: 12345678</p>
+                <p style="font-family:'Montserrat', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--text-deep); text-transform: uppercase; font-weight: 600;">Amazon: <a href="#" style="color: var(--text-rose); text-decoration: none;">Ver Lista</a></p>
+            </div>
+
+            <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio-alt anim-fade-up">
+                <div class="section-heading">Asistencia</div>
+                <p class="rsvp-intro">Por favor, confirma tu asistencia antes del 10 de Julio.</p>
+                <form onsubmit="event.preventDefault(); alert('¡Gracias por confirmar!');">
+                    <div class="rsvp-input-wrap">
+                        <label class="rsvp-input-label">Nombre Completo</label>
+                        <input type="text" class="rsvp-input" placeholder="Ej. Familia Pérez" required>
+                    </div>
+                    <div class="rsvp-input-wrap">
+                        <label class="rsvp-input-label">Número de Pases</label>
+                        <select class="rsvp-input" required>
+                            <option value="" disabled selected>Selecciona cantidad</option>
+                            <option value="1">1 Persona</option>
+                            <option value="2">2 Personas</option>
+                            <option value="3">3 Personas</option>
+                            <option value="4">4 Personas</option>
+                            <option value="0">No podré asistir</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-confirmar">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Confirmar Asistencia
+                    </button>
+                </form>
+            </div>
+
+            <div class="lotus-header anim-fade-up" style="margin-top: 40px;">
+                <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 8 8 12C8 16 12 22 12 22C12 22 16 16 16 12C16 8 12 2 12 2Z" fill="#d4af37"/></svg>
+            </div>
+            <div class="invitation-footer anim-fade-up">¡Te espero para celebrar!</div>
+
+        </div>
+    </main>
+
+    <!-- Lightbox de Galería (Opcional si se añaden fotos) -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoom">
+    </div>
+
+    <script>
+        /* ====== LOGICA DE LA INVITACION ====== */
+
+        // 1. Sobre y Pantalla Inicial
+        const envelope = document.getElementById('envelopeWrapperNew');
+        const screen = document.getElementById('envelope-screen');
+        const song = document.getElementById('song');
+        const musicBtn = document.getElementById('music-control-btn');
+        let isPlaying = false;
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            setTimeout(() => {
+                screen.classList.add('fade-out');
+                document.body.classList.add('content-active');
+                musicBtn.classList.add('visible');
+                document.getElementById('glitter-canvas').classList.add('visible');
+                
+                // Intento de reproducir música al abrir
+                let playPromise = song.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        isPlaying = true;
+                    }).catch(error => {
+                        console.log("Autoplay bloqueado por el navegador.");
+                        isPlaying = false;
+                        updateMusicIcon();
+                    });
+                }
+            }, 1600);
+        });
+
+        // 2. Control de Música
+        function toggleMusic() {
+            if(isPlaying) {
+                song.pause();
+                isPlaying = false;
+            } else {
+                song.play();
+                isPlaying = true;
+            }
+            updateMusicIcon();
+        }
+
+        function updateMusicIcon() {
+            const icon = document.getElementById('music-icon');
+            if(isPlaying) {
+                // Icono de pausa
+                icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+                // Icono de play
+                icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+            }
+        }
+
+        // 3. Generación de Linternas Flotantes
+        function createLanterns(containerId, count) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            for(let i=0; i<count; i++) {
+                let lantern = document.createElement('div');
+                lantern.className = 'floating-lantern';
+                let size = Math.random() * 15 + 10;
+                lantern.style.width = size + 'px';
+                lantern.style.height = (size * 1.4) + 'px';
+                lantern.style.left = Math.random() * 100 + 'vw';
+                lantern.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                lantern.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(lantern);
+            }
+        }
+        createLanterns('env-lanterns-container', 15);
+        createLanterns('lanterns-container', 25);
+
+        // 4. Animaciones al hacer Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.anim-fade-up').forEach(el => observer.observe(el));
+
+        // 5. Cuenta Regresiva (24 de Julio de 2026, 18:00 hrs)
+        const targetDate = new Date('July 24, 2026 18:00:00').getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if(distance < 0) return; // Si ya pasó, se queda en 00
+            
+            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+
+        // 6. Efecto Canvas Glitter (Estrellas mágicas cayendo)
+        const canvas = document.getElementById('glitter-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+        const numberOfParticles = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initGlitter() {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateGlitter() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateGlitter);
+        }
+
+        initGlitter();
+        animateGlitter();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 7. Lightbox de Galería
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
