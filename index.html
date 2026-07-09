@@ -10,9 +10,9 @@
             /* Paleta LUMINOSA: Lila claro, Violeta profundo y Dorado Mágico */
             --bg-main: #f9f4fc;
             --bg-env: linear-gradient(135deg, #f3e6fa 0%, #e1c8f2 100%);
-            --rosa-bloque: rgba(255, 255, 255, 0.45);
+            --rosa-bloque: rgba(255, 255, 255, 0.55);
             --rosa-bloque-borde: rgba(181, 137, 214, 0.4);
-            --rosa-bloque-alt: rgba(240, 227, 250, 0.4);
+            --rosa-bloque-alt: rgba(240, 227, 250, 0.5);
             --text-deep: #3b1f47; /* Morado profundo para legibilidad */
             --text-rose: #b58900; /* Dorado para acentos */
             --text-lilac: #8c5a9e; /* Lila oscuro para subtitulos */
@@ -25,7 +25,7 @@
         body, html {
             width: 100%; height: 100%;
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background-color: var(--bg-main); /* Fondo luminoso y claro */
+            background-color: var(--bg-main);
             color: var(--text-deep);
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -150,19 +150,24 @@
             100% { transform: translateY(-100vh) rotate(-5deg); opacity: 0; }
         }
 
-        /* ====== MARIPOSAS ANIMADAS ====== */
-        .butterfly {
-            position: absolute; width: 22px; height: 22px; pointer-events: none; opacity: 0.6; z-index: 1;
-            animation: flutter 12s infinite ease-in-out;
+        /* ====== DECORACIONES: FLORES Y MARIPOSAS PNG ====== */
+        .decor-img {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.9;
+            filter: drop-shadow(0 5px 15px rgba(140, 90, 158, 0.2));
         }
-        .butterfly svg { fill: #cba3e8; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); animation: flap .4s infinite alternate ease-in-out; }
-        @keyframes flap { 0% { transform: scaleX(1); } 100% { transform: scaleX(0.2); } }
-        @keyframes flutter {
-            0% { transform: translate(0, 0) rotate(15deg); opacity: 0;}
-            10% { opacity: 0.7;}
-            50% { transform: translate(150px, -300px) rotate(-15deg); }
-            90% { opacity: 0.7;}
-            100% { transform: translate(300px, -500px) rotate(15deg); opacity: 0;}
+        .decor-flower { width: 130px; }
+        .decor-butterfly { width: 85px; animation: float-anim 5s ease-in-out infinite alternate; }
+        
+        @keyframes float-anim {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes float-anim-rev {
+            0% { transform: scaleX(-1) translateY(0) rotate(5deg); }
+            100% { transform: scaleX(-1) translateY(-15px) rotate(-5deg); }
         }
 
         /* ====== MAIN ====== */
@@ -183,18 +188,12 @@
             border-radius:4px; overflow:visible;
         }
 
-        /* Flores Decorativas Esquinas */
-        .floral-corner {
-            position: absolute; width: 80px; height: 80px; opacity: 0.5; pointer-events: none; z-index: 5;
-        }
-        .floral-corner.top-left { top: -15px; left: -15px; transform: rotate(0deg); }
-        .floral-corner.bottom-right { bottom: -15px; right: -15px; transform: rotate(180deg); }
-
         .hero-photo-wrap {
             width: 240px; height: 320px; margin: 0 auto 25px auto;
             border-radius: 120px 120px 0 0; padding: 6px;
             background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(181, 137, 214, 0.5);
             box-shadow: 0 15px 35px rgba(140, 90, 158, 0.15);
+            position: relative;
         }
         .hero-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 114px 114px 0 0; }
 
@@ -225,7 +224,7 @@
         .phrase { font-family:'EB Garamond','Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--text-deep);line-height:1.7;margin-bottom:35px;padding:0 10px;font-weight:400; }
         .family-names { font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--text-deep);line-height:1.6;margin-top:6px; }
         .info-label { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 11px; letter-spacing: 3px; color: var(--text-rose); text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-        .info-block { margin-bottom:28px; }
+        .info-block { margin-bottom:28px; position: relative; }
 
         .divider-ornate { display:flex;align-items:center;justify-content:center;gap:8px;margin:32px auto; }
         .divider-ornate::before,.divider-ornate::after { content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(181, 137, 214, 0.6)); }
@@ -297,9 +296,9 @@
         .itin-hora { font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:1px; color:var(--text-rose); margin-bottom:4px; }
         .itin-evento-nombre { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; font-weight:600; color:var(--text-deep); line-height:1.1; }
 
-        /* ====== MESA DE REGALOS ====== */
+        /* ====== MESA DE REGALOS (Diseño Especial) ====== */
         .regalo-container { text-align: center; margin-top: 15px; }
-        .regalo-icon { width: 60px; height: 60px; margin: 0 auto 15px auto; display: block; fill: var(--text-rose); }
+        .regalo-icon { width: 60px; height: 60px; margin: 0 auto 15px auto; display: block; stroke: var(--text-rose); fill: none; }
         .regalo-pill {
             background: var(--text-lilac); color: #fff;
             padding: 12px 35px; border-radius: 30px;
@@ -307,7 +306,7 @@
             display: inline-block; box-shadow: 0 6px 15px rgba(140,90,158,0.4);
             border: 1px solid rgba(255,255,255,0.4); margin-bottom: 15px;
         }
-        .regalo-subtext { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--text-deep); padding: 0 10px; line-height: 1.4; }
+        .regalo-subtext { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--text-deep); padding: 0 10px; line-height: 1.4; margin-bottom: 25px;}
         .regalo-stars { color: var(--text-rose); font-size: 18px; letter-spacing: 8px; margin: 25px 0; }
 
         /* ====== CONFIRMACIÓN & FORMS ====== */
@@ -368,11 +367,9 @@
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
 
-    <!-- Sobre -->
     <div id="envelope-screen">
         <div id="env-stars"></div>
         <div id="env-lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
-        <!-- Destellos mágicos (dorados) -->
         <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
             <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
         </div>
@@ -394,7 +391,6 @@
                         <linearGradient id="goldGrad2" x1="0" y1="0" x2="310" y2="210" gradientUnits="userSpaceOnUse">
                             <stop offset="0%" stop-color="#ffe082"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#9e7f1e"/>
                         </linearGradient>
-                        <!-- Sobres Lilosos -->
                         <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
                             <stop offset="0%" stop-color="#eedeff"/><stop offset="100%" stop-color="#d8bee8"/>
                         </linearGradient>
@@ -449,21 +445,12 @@
 
     <main id="main-invitation">
         <div id="lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
-        <div id="butterflies-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:2;"></div>
 
         <div class="invitation-frame" style="z-index:3;">
             
-            <!-- Flores Esquinas -->
-            <svg class="floral-corner top-left anim-fade-up" viewBox="0 0 100 100" fill="none">
-                <path d="M10,10 C30,5 50,20 60,40 C40,30 20,40 10,60 C5,40 0,20 10,10 Z" fill="#cba3e8"/>
-                <path d="M20,20 C40,15 55,30 65,50 C45,45 30,55 20,70 C15,50 10,30 20,20 Z" fill="#b58900" opacity="0.6"/>
-            </svg>
-            <svg class="floral-corner bottom-right anim-fade-up" viewBox="0 0 100 100" fill="none">
-                <path d="M10,10 C30,5 50,20 60,40 C40,30 20,40 10,60 C5,40 0,20 10,10 Z" fill="#cba3e8"/>
-                <path d="M20,20 C40,15 55,30 65,50 C45,45 30,55 20,70 C15,50 10,30 20,20 Z" fill="#b58900" opacity="0.6"/>
-            </svg>
+            <img src="assets/flores.png" class="decor-img decor-flower anim-fade-up" style="top:-30px; right:-20px; transform: rotate(15deg);" alt="">
+            <img src="assets/mariposa.png" class="decor-img decor-butterfly anim-fade-up" style="top:5%; left:-25px;" alt="">
 
-            <!-- Destellos Dorados (Marco) -->
             <div class="frame-sparkle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/></svg></div>
             <div class="frame-sparkle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.85"/></svg></div>
 
@@ -487,7 +474,6 @@
                 <div class="family-names">David Rodríguez Ibarra & Natalia Reyes Domínguez</div>
             </div>
 
-            <!-- Foto Distribuida 1 (Galeria 3) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-3.jpg" alt="Sesión Valeria">
             </div>
@@ -503,6 +489,8 @@
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
             <div class="bloque-vidrio anim-fade-up">
+                <img src="assets/flores.png" class="decor-img decor-flower" style="bottom:-25px; left:-35px; transform: rotate(-25deg); width:100px;" alt="">
+
                 <div class="section-heading anim-fade-up">Fecha</div>
                 <div class="anim-fade-up" style="font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--text-deep);letter-spacing:3px;">07 · AGO · 2026</div>
                 <div class="anim-fade-up" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--text-muted);margin-top:5px;font-weight:600;">Viernes</div>
@@ -530,12 +518,13 @@
                 </button>
             </div>
 
-            <!-- Foto Distribuida 2 (Galeria 4) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-4.jpg" alt="Sesión Valeria">
             </div>
 
-            <div class="info-block anim-fade-up" style="margin-top: 30px;">
+            <div class="info-block anim-fade-up" style="margin-top: 30px; position:relative;">
+                <img src="assets/mariposa.png" class="decor-img decor-butterfly" style="top:-30px; right:-20px; animation-name: float-anim-rev;" alt="">
+
                 <div class="section-heading anim-fade-up" style="margin-bottom: 25px;">Ubicación</div>
                 
                 <div class="ubicacion-sencilla">
@@ -553,9 +542,10 @@
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
             <div class="bloque-vidrio-alt anim-fade-up">
+                <img src="assets/flores.png" class="decor-img decor-flower" style="top:30%; right:-40px; transform: rotate(20deg); width:95px;" alt="">
+
                 <div class="section-heading anim-fade-up">Itinerario</div>
                 <div class="itinerario-timeline" id="itinerario">
-                    <!-- 1. Ceremonia (Izquierda) - Cruz clásica -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">5:30 P.M.</span>
@@ -566,7 +556,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 2. Recepción (Derecha) - Copas -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">7:00 P.M.</span>
@@ -577,7 +566,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 3. Presentación (Izquierda) - Destellos mágicos -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">7:30 P.M.</span>
@@ -588,7 +576,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 4. Cena (Derecha) - Tenedor y Cuchillo -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">8:00 P.M.</span>
@@ -599,7 +586,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 5. Vals (Izquierda) - Nota Musical -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">10:00 P.M.</span>
@@ -610,7 +596,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 6. Batucada (Derecha) - Radio/Boombox -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">11:00 P.M.</span>
@@ -621,7 +606,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 7. Tornafiesta (Izquierda) - Rebanada de Pizza -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">1:00 A.M.</span>
@@ -632,7 +616,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 8. Fin del Evento (Derecha) - Luna Mágica -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">3:00 A.M.</span>
@@ -646,28 +629,33 @@
                 </div>
             </div>
 
-            <!-- Foto Distribuida 3 (Galeria 7) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-7.jpg" alt="Sesión Valeria">
             </div>
 
             <div class="bloque-vidrio anim-fade-up">
+                <img src="assets/mariposa.png" class="decor-img decor-butterfly" style="bottom:-20px; left:-25px;" alt="">
+
                 <div class="section-heading anim-fade-up">Código de Vestimenta</div>
-                <div class="anim-fade-up" style="font-family:'Cinzel',serif;font-size:22px;font-weight:700;letter-spacing:4px;color:var(--text-deep);margin-top:2px;">Formal</div>
+                <div class="anim-fade-up" style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;letter-spacing:4px;color:var(--text-deep);margin-top:2px;">Formal</div>
                 <div class="anim-fade-up" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text-lilac);font-weight:600;margin-top:8px; padding: 0 15px;">Se reserva el color lila y azul pastel para la festejada.</div>
             </div>
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- MESA DE REGALOS (Diseño Imagen) -->
             <div class="bloque-vidrio-alt anim-fade-up" style="padding-bottom: 40px;">
+                <img src="assets/flores.png" class="decor-img decor-flower" style="top:-30px; right:-15px; transform: rotate(-10deg); width:110px;" alt="">
+
                 <p class="anim-fade-up" style="font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--text-deep); line-height: 1.5; margin-bottom: 30px;">
                     Lo más importante para mí es que puedas celebrar este día tan especial conmigo. Pero si deseas hacerme un obsequio, te dejo las siguientes opciones:
                 </p>
                 
                 <div class="regalo-container anim-fade-up">
-                    <svg class="regalo-icon" viewBox="0 0 24 24">
-                        <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1h-4v-2h4zM9 4c.55 0 1 .45 1 1v2H6c0-.55.45-1 1-1zm-5 4h7v11H4V8zm16 11h-7V8h7v11z"/>
+                    <svg class="regalo-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="8" width="18" height="4" rx="1" ry="1"></rect>
+                        <path d="M12 8v13"></path>
+                        <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
+                        <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
                     </svg>
                     <div class="regalo-pill">Regalo Tradicional</div>
                     <p class="regalo-subtext">Si lo deseas, podrás dejar tu regalo en un área especial el día del evento.</p>
@@ -676,14 +664,14 @@
                 <div class="regalo-stars anim-fade-up">✦ ✦ ✦</div>
 
                 <div class="regalo-container anim-fade-up">
-                    <svg class="regalo-icon" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    <svg class="regalo-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+                        <path d="M3 6l9 6 9-6"></path>
                     </svg>
                     <div class="regalo-pill">Lluvia de Sobres</div>
                 </div>
             </div>
 
-            <!-- Foto Distribuida 4 (Galeria 8) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-8.jpg" alt="Sesión Valeria">
             </div>
@@ -713,7 +701,6 @@
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- Foto Distribuida 5 (Galeria 9) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-9.jpg" alt="Sesión Valeria">
             </div>
@@ -736,6 +723,8 @@
                     </button>
                 </form>
             </div>
+
+            <img src="assets/flores.png" class="decor-img decor-flower anim-fade-up" style="bottom:10px; left:-30px; transform: rotate(15deg); width:120px;" alt="">
 
             <div class="divider-ornate anim-fade-up" style="margin-top:30px;"><div class="divider-ornate-diamond"></div></div>
             <div class="invitation-footer anim-fade-up">Invytia Premium</div>
@@ -765,7 +754,7 @@
                 decay:Math.random()*(burst?0.016:0.007)+0.005,
                 rotation:Math.random()*Math.PI*2,
                 rotSpeed:(Math.random()-0.5)*0.18,
-                color:Math.random()>0.5?'212,175,55':'255,255,255' /* Dorado y blanco */
+                color:Math.random()>0.5?'212,175,55':'255,255,255'
             };
         }
         function createGlitterBurst(x,y){for(let i=0;i<20;i++)glitterParticles.push(makeParticle(x,y,true));}
@@ -802,7 +791,7 @@
         function startGlitter(){canvas.classList.add('visible');drawGlitter();setInterval(spawnAmbient,350);}
         document.addEventListener('click',e=>{if(document.body.classList.contains('content-active'))createGlitterBurst(e.clientX,e.clientY);});
 
-        /* ===== SCROLL OBSERVER (Animación en todos los textos) ===== */
+        /* ===== SCROLL OBSERVER ===== */
         function initScrollAnimations(){
             const elements = document.querySelectorAll('.anim-fade-up');
             const observer = new IntersectionObserver((entries) => {
@@ -825,20 +814,6 @@
                 l.className='floating-lantern';
                 l.style.cssText=`width:${w}px;height:${w*1.5}px;left:${Math.random()*100}%;bottom:-40px;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*8}s;`;
                 c.appendChild(l);
-            }
-        }
-
-        /* ===== MARIPOSAS ===== */
-        function createButterflies(count){
-            const c=document.getElementById('butterflies-container');
-            if(!c) return;
-            const svgPath = '<svg viewBox="0 0 24 24"><path d="M12.93 5.4c1.23-.46 2.63-1.02 4.09-1.37 2.15-.52 3.61-.17 3.86 1.13.23 1.16-1.08 2.72-3.13 3.66-1.58.73-3.37 1.07-5.02 1.19.16.51.27 1.03.27 1.54 0 .94-.28 1.84-.78 2.61l.73.57c1.78.36 3.65.65 5.51.81 2.45.2 3.7.83 3.49 1.93-.2 1.04-1.93 1.63-4.32 1.4-1.74-.17-3.52-.61-5.18-1.29l-1.06-.82c-.44.07-.89.12-1.35.12s-.91-.05-1.35-.12l-1.06.82c-1.66.68-3.44 1.12-5.18 1.29-2.39.23-4.12-.36-4.32-1.4-.21-1.1 1.04-1.73 3.49-1.93 1.86-.16 3.73-.45 5.51-.81l.73-.57c-.5-.77-.78-1.67-.78-2.61 0-.51.11-1.03.27-1.54-1.65-.12-3.44-.46-5.02-1.19-2.05-.94-3.36-2.5-3.13-3.66.25-1.3 1.71-1.65 3.86-1.13 1.46.35 2.86.91 4.09 1.37z"/></svg>';
-            for(let i=0;i<count;i++){
-                const b=document.createElement('div');
-                b.className='butterfly';
-                b.innerHTML = svgPath;
-                b.style.cssText=`left:${Math.random()*80}%; top:${Math.random()*80}%; animation-delay:${Math.random()*10}s; animation-duration:${Math.random()*6 + 10}s;`;
-                c.appendChild(b);
             }
         }
 
@@ -883,7 +858,6 @@
                 document.body.classList.add('content-active');
                 if (musicBtn) musicBtn.classList.add('visible');
                 createLanterns('lanterns-container', 18);
-                createButterflies(8);
                 startGlitter();
                 initScrollAnimations();
             }, 1400);
