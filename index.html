@@ -367,11 +367,9 @@
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
 
-    <!-- Sobre -->
     <div id="envelope-screen">
         <div id="env-stars"></div>
         <div id="env-lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
-        <!-- Destellos mágicos (dorados) -->
         <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
             <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
         </div>
@@ -393,7 +391,6 @@
                         <linearGradient id="goldGrad2" x1="0" y1="0" x2="310" y2="210" gradientUnits="userSpaceOnUse">
                             <stop offset="0%" stop-color="#ffe082"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#9e7f1e"/>
                         </linearGradient>
-                        <!-- Sobres Lilosos -->
                         <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
                             <stop offset="0%" stop-color="#eedeff"/><stop offset="100%" stop-color="#d8bee8"/>
                         </linearGradient>
@@ -448,18 +445,16 @@
 
     <main id="main-invitation">
         <div id="lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
+        <div id="butterflies-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:2;"></div>
 
         <div class="invitation-frame" style="z-index:3;">
             
-            <!-- Decoraciones Superiores -->
             <img src="assets/flores.png" class="decor-img decor-flower anim-fade-up" style="top:-30px; right:-20px; transform: rotate(15deg);" alt="">
             <img src="assets/mariposa.png" class="decor-img decor-butterfly anim-fade-up" style="top:5%; left:-25px;" alt="">
 
-            <!-- Destellos Dorados (Marco) -->
             <div class="frame-sparkle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.9"/></svg></div>
             <div class="frame-sparkle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill="#d4af37" opacity="0.85"/></svg></div>
 
-            <!-- Aquí usamos galeria-4 como Hero principal -->
             <div class="hero-photo-wrap anim-fade-up">
                 <img src="assets/galeria-4.jpg" alt="Valeria" class="hero-photo">
             </div>
@@ -480,7 +475,6 @@
                 <div class="family-names">David Rodríguez Ibarra<br>Natalia Reyes Domínguez</div>
             </div>
 
-            <!-- Foto Distribuida 1 (Galeria 3) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-3.jpg" alt="Sesión Valeria">
             </div>
@@ -496,7 +490,6 @@
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
             <div class="bloque-vidrio anim-fade-up">
-                <!-- Flor Decorativa en Bloque Fecha -->
                 <img src="assets/flores.png" class="decor-img decor-flower" style="bottom:-25px; left:-35px; transform: rotate(-25deg); width:100px;" alt="">
 
                 <div class="section-heading anim-fade-up">Fecha</div>
@@ -526,7 +519,6 @@
                 </button>
             </div>
 
-            <!-- Ubicación -->
             <div class="info-block anim-fade-up" style="margin-top: 30px; position:relative;">
                 <img src="assets/mariposa.png" class="decor-img decor-butterfly" style="top:-30px; right:-20px; animation-name: float-anim-rev;" alt="">
 
@@ -536,10 +528,9 @@
                     <div class="anim-fade-up" style="font-family:'Cinzel',serif;font-size:13px;color:var(--text-lilac);margin-bottom:5px;letter-spacing:2px;font-weight:700;text-transform:uppercase;">Salón Dängo</div>
                     <img src="assets/salon.jpg" alt="Salón Dängo" class="anim-fade-up" style="width:100%; border-radius:6px; margin-bottom:12px; border:1px solid rgba(181,137,214,0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                     <div class="map-wrapper anim-fade-up">
-                        <!-- Mapa del Salón Corregido -->
-                        <iframe src="https://maps.google.com/maps?q=Salon%20%26%20Jard%C3%ADn%20Dango,%20Carr.%20M%C3%A9xico%20-%20Pachuca,%2043815%20El%20Carmen,%20Hgo.&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115160.03816551604!2d-100.54012117565917!3d25.578665042654394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868a2bc4ca31f9d9%3A0xe5a22d867c4ef509!2zU2Fsw7NuIETDpG5nbw!5e0!3m2!1ses-419!2smx!4v1714589541528!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
-                    <a href="https://share.google/tuZHCKa0pzsWw0cmq" target="_blank" style="text-decoration:none;" class="anim-fade-up">
+                    <a href="https://maps.app.goo.gl/qJt9z" target="_blank" style="text-decoration:none;" class="anim-fade-up">
                         <button class="btn-accion">Ver en Google Maps</button>
                     </a>
                 </div>
@@ -547,7 +538,6 @@
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- Opción de Hospedaje -->
             <div class="bloque-vidrio-alt anim-fade-up">
                 <div class="section-heading anim-fade-up" style="margin-bottom: 25px;">Opción de Hospedaje</div>
                 
@@ -556,11 +546,11 @@
                     <div class="anim-fade-up" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text-muted);margin-bottom:12px;font-weight:600;">Santa Lucía, Estado de México</div>
                     
                     <div class="map-wrapper anim-fade-up">
-                        <iframe src="https://maps.google.com/maps?q=Hotel%20del%20Ej%C3%A9rcito%20y%20Fuerza%20A%C3%A9rea%20Santa%20Luc%C3%ADa,%20Zumpango,%20M%C3%A9x.&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3756.242780654767!2d-98.9882269!3d19.744747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1eab248ecffff%3A0xc0fbdb1bd0ce5e90!2sHotel%20del%20Ej%C3%A9rcito%20y%20Fuerza%20A%C3%A9rea%20Santa%20Luc%C3%ADa!5e0!3m2!1ses-419!2smx!4v1714589703429!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; gap: 8px;" class="anim-fade-up">
-                        <a href="https://maps.app.goo.gl/SZD1Bqv1oWr9Sv6K9?g_st=aw" target="_blank" style="text-decoration:none;">
+                        <a href="https://maps.app.goo.gl/k1A2R" target="_blank" style="text-decoration:none;">
                             <button class="btn-accion" style="margin-top:0;">Ver en Google Maps</button>
                         </a>
                         <a href="https://hsantalucia.com.mx/" target="_blank" style="text-decoration:none;">
@@ -575,14 +565,23 @@
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- Itinerario -->
+            <div id="seccion-pases" class="bloque-vidrio anim-fade-up" style="display: none; padding: 40px 20px;">
+                <div style="border: 2px dashed rgba(181, 137, 214, 0.6); border-radius: 12px; padding: 30px 10px; position: relative;">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--rosa-bloque); padding: 0 15px; border-radius: 20px;">
+                        <svg viewBox="0 0 24 24" style="width: 25px; height: 25px; fill: var(--text-rose);"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.41l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.41zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+                    </div>
+                    <div class="section-heading" style="margin-bottom: 5px;">Pase de Acceso</div>
+                    <div style="font-family:'Cinzel',serif;font-size:14px;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:15px;font-weight:700;">Reservado para</div>
+                    <div style="font-family:'Pinyon Script',cursive;font-size:65px;color:var(--text-lilac);line-height:1;margin-bottom:5px;" id="numero-pases">1</div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--text-deep);font-style:italic;" id="texto-pases">Persona</div>
+                </div>
+            </div>
+
             <div class="bloque-vidrio anim-fade-up">
-                <!-- Flor Decorativa en Itinerario -->
                 <img src="assets/flores.png" class="decor-img decor-flower" style="top:30%; right:-40px; transform: rotate(20deg); width:95px;" alt="">
 
                 <div class="section-heading anim-fade-up">Itinerario</div>
                 <div class="itinerario-timeline" id="itinerario">
-                    <!-- 1. Ceremonia (Izquierda) - Cruz clásica sin flechas -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">5:30 P.M.</span>
@@ -593,7 +592,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 2. Recepción (Derecha) - Copas -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">7:00 P.M.</span>
@@ -604,7 +602,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 3. Presentación (Izquierda) - Estrellas / Destellos -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">7:30 P.M.</span>
@@ -615,7 +612,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 4. Cena (Derecha) - Cubiertos -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">8:00 P.M.</span>
@@ -626,7 +622,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 5. Vals (Izquierda) - Nota musical -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">10:00 P.M.</span>
@@ -637,7 +632,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 6. Batucada (Derecha) - Boombox / Radio -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">11:00 P.M.</span>
@@ -648,7 +642,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 7. Tornafiesta (Izquierda) - Pizza -->
                     <div class="itin-row itin-left anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">1:00 A.M.</span>
@@ -659,7 +652,6 @@
                         </div>
                         <div class="itin-half"></div>
                     </div>
-                    <!-- 8. Fin del Evento (Derecha) - Luna -->
                     <div class="itin-row itin-right anim-fade-up">
                         <div class="itin-half">
                             <span class="itin-hora">3:00 A.M.</span>
@@ -673,13 +665,11 @@
                 </div>
             </div>
 
-            <!-- Foto Distribuida 3 (Galeria 7) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-7.jpg" alt="Sesión Valeria">
             </div>
 
             <div class="bloque-vidrio-alt anim-fade-up">
-                <!-- Mariposa Decorativa en Dress Code -->
                 <img src="assets/mariposa.png" class="decor-img decor-butterfly" style="bottom:-20px; left:-25px;" alt="">
 
                 <div class="section-heading anim-fade-up">Código de Vestimenta</div>
@@ -689,9 +679,7 @@
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- MESA DE REGALOS -->
             <div class="bloque-vidrio anim-fade-up" style="padding-bottom: 40px;">
-                <!-- Flor Decorativa Superior Derecha MÁS ARRIBA para no tapar texto -->
                 <img src="assets/flores.png" class="decor-img decor-flower" style="top:-75px; right:-20px; transform: rotate(-10deg); width:110px;" alt="">
 
                 <p class="anim-fade-up" style="font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--text-deep); line-height: 1.5; margin-bottom: 30px;">
@@ -699,7 +687,6 @@
                 </p>
                 
                 <div class="regalo-container anim-fade-up">
-                    <!-- Icono Caja de Regalo Real -->
                     <svg class="regalo-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="8" width="18" height="4" rx="1" ry="1"></rect>
                         <path d="M12 8v13"></path>
@@ -713,7 +700,6 @@
                 <div class="regalo-stars anim-fade-up">✦ ✦ ✦</div>
 
                 <div class="regalo-container anim-fade-up">
-                    <!-- Icono Sobre Centrado -->
                     <svg class="regalo-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="6" width="18" height="12" rx="2"></rect>
                         <path d="M3 6l9 6 9-6"></path>
@@ -722,7 +708,6 @@
                 </div>
             </div>
 
-            <!-- Foto Distribuida 4 (Galeria 8) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-8.jpg" alt="Sesión Valeria">
             </div>
@@ -752,7 +737,6 @@
 
             <div class="divider-ornate anim-fade-up"><div class="divider-ornate-diamond"></div></div>
 
-            <!-- Foto Distribuida 5 (Galeria 9) -->
             <div class="scattered-photo anim-fade-up">
                 <img src="assets/galeria-9.jpg" alt="Sesión Valeria">
             </div>
@@ -776,7 +760,6 @@
                 </form>
             </div>
 
-            <!-- Flor Decorativa Inferior -->
             <img src="assets/flores.png" class="decor-img decor-flower anim-fade-up" style="bottom:10px; left:-30px; transform: rotate(15deg); width:120px;" alt="">
 
             <div class="divider-ornate anim-fade-up" style="margin-top:30px;"><div class="divider-ornate-diamond"></div></div>
@@ -786,6 +769,7 @@
 
     <script>
         let isPlaying = false;
+        let pasesAsignados = 0; // Variable global para guardar los pases
         const NUMERO_WHATSAPP = "525547066794";
 
         /* ===== GLITTER MAGICO ===== */
@@ -870,7 +854,7 @@
             }
         }
 
-        /* ===== APERTURA SOBRE ===== */
+        /* ===== APERTURA SOBRE Y LÓGICA DE PASES ===== */
         (function(){
             const c = document.getElementById('env-stars');
             if (c) {
@@ -887,6 +871,20 @@
         })();
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Lógica Pases URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const numPases = parseInt(urlParams.get('pases'));
+            
+            if (!isNaN(numPases) && numPases >= 1 && numPases <= 6) {
+                pasesAsignados = numPases;
+                const seccionPases = document.getElementById('seccion-pases');
+                if (seccionPases) {
+                    seccionPases.style.display = 'block';
+                    document.getElementById('numero-pases').innerText = pasesAsignados;
+                    document.getElementById('texto-pases').innerText = pasesAsignados === 1 ? 'Persona' : 'Personas';
+                }
+            }
+
             const wrapper = document.getElementById('envelopeWrapperNew');
             if (wrapper) {
                 ['click','touchstart'].forEach(ev => {
@@ -936,7 +934,12 @@
             
             if(!inp||!inp.value.trim()){alert('Por favor ingresa tu nombre completo.');inp.focus();return;}
             
-            const msg=`¡Hola! Soy ${inp.value.trim()}.\nTe escribo para confirmar que *${attendance.value}* a los XV Años de Valeria.`;
+            let msg=`¡Hola! Soy ${inp.value.trim()}.\nTe escribo para confirmar que *${attendance.value}* a los XV Años de Valeria.`;
+            
+            if (pasesAsignados > 0) {
+                msg += `\n🎫 Pases asignados: ${pasesAsignados}`;
+            }
+
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
         }
 
